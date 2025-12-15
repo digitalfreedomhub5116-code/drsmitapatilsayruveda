@@ -43,7 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({
   
   // Desktop Scroll Animations
   const headerBg = useTransform(scrollY, [0, 50], ["rgba(255,255,255,0)", "rgba(255,255,255,0.98)"]);
-  const headerBlur = useTransform(scrollY, [0, 50], ["blur(0px)", "blur(12px)"]);
+  // We removed dynamic blur here for performance. CSS classes handle desktop blur.
+  // const headerBlur = useTransform(scrollY, [0, 50], ["blur(0px)", "blur(12px)"]); 
   const headerShadow = useTransform(scrollY, [0, 50], ["none", "0 4px 20px -5px rgba(0,0,0,0.05)"]);
   const navPadding = useTransform(scrollY, [0, 50], ["1.5rem", "1rem"]);
 
@@ -54,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({
       const results = allProducts.filter(p => 
         p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         p.description.some(d => d.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
+      ).slice(0, 5); // Limit to 5 results for performance
       setSearchResults(results);
     } else {
       setSearchResults([]);
@@ -157,17 +158,17 @@ const Navbar: React.FC<NavbarProps> = ({
           <motion.nav
             style={{ 
               backgroundColor: headerBg, 
-              backdropFilter: headerBlur,
+              // backdropFilter: headerBlur, // Disabled for performance, handled by CSS media query if needed
               boxShadow: headerShadow,
               paddingTop: navPadding,
               paddingBottom: navPadding
             }}
-            className="fixed top-[28px] left-0 right-0 z-[100] w-full transition-all duration-300"
+            className="fixed top-[28px] left-0 right-0 z-[100] w-full transition-all duration-300 backdrop-blur-md"
           >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                 {/* Logo */}
                 <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('home'); }} className="font-display font-bold text-2xl text-rosegold tracking-tight">
-                    Dr. Smita Patil
+                    Dr. Smita Patil's <span className="text-gold italic ml-1">Ayurveda</span>
                 </a>
 
                 {/* Links */}
@@ -218,7 +219,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="fixed top-0 left-0 right-0 z-[100] bg-white shadow-sm pb-2 pt-safe-top">
              <div className="flex justify-between items-center px-4 py-2">
                  <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('home'); }} className="font-display font-bold text-lg text-rosegold">
-                    Dr. Smita Patil
+                    Dr. Smita Patil's <span className="text-gold italic ml-1">Ayurveda</span>
                  </a>
                  <div className="flex gap-4">
                     <button onClick={onOpenWishlist} className="relative p-1 text-charcoal">

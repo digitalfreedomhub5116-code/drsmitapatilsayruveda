@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { HERO_PHRASES, CATEGORIES, MAIN_PRODUCT, HERO_IMAGES as DEFAULT_HERO_IMAGES, DEFAULT_SITE_CONTENT } from '../constants';
-import { Category, Product, SiteContent, User } from '../types';
+import { Category, Product, SiteContent, User, Review } from '../types';
 
 // Define the shape of our CMS data
 interface DataContextType {
@@ -18,6 +18,10 @@ interface DataContextType {
   registerUser: (user: User) => void;
   updateUserRecord: (user: User) => void;
   deleteUserRecord: (userId: string) => void;
+  // Reviews
+  reviews: Review[];
+  addReview: (review: Review) => void;
+  
   resetToDefaults: () => void;
 }
 
@@ -26,6 +30,32 @@ const INITIAL_HERO_IMAGES = [
   MAIN_PRODUCT.image,
   "https://images.unsplash.com/photo-1612817288484-96916a0816a9?q=80&w=1000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop"
+];
+
+// Mock Initial Reviews
+const INITIAL_REVIEWS: Review[] = [
+  {
+    id: 'rev-1',
+    productId: 'mm-001',
+    userId: 'u1',
+    userName: 'Priya Sharma',
+    rating: 5,
+    comment: 'Absolutely love this Multani Mitti! My skin feels so fresh and the oiliness is gone.',
+    media: [
+        { type: 'image', url: 'https://images.unsplash.com/photo-1556228720-1957be9922c2?q=80&w=200&auto=format&fit=crop' }
+    ],
+    date: '2023-10-15'
+  },
+  {
+    id: 'rev-2',
+    productId: 'mm-001',
+    userId: 'u2',
+    userName: 'Anjali Gupta',
+    rating: 4,
+    comment: 'Great product, authentic fragrance. Packaging could be better though.',
+    media: [],
+    date: '2023-11-02'
+  }
 ];
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -57,6 +87,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [reviews, setReviews] = useState<Review[]>(() => {
+    const saved = localStorage.getItem('site_reviews');
+    return saved ? JSON.parse(saved) : INITIAL_REVIEWS;
+  });
+
   // Persistence Effects
   useEffect(() => {
     localStorage.setItem('site_hero_phrases', JSON.stringify(heroPhrases));
@@ -77,6 +112,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     localStorage.setItem('site_users', JSON.stringify(registeredUsers));
   }, [registeredUsers]);
+
+  useEffect(() => {
+    localStorage.setItem('site_reviews', JSON.stringify(reviews));
+  }, [reviews]);
 
   const updateHeroPhrases = (phrases: string[]) => setHeroPhrases(phrases);
   const updateHeroImages = (images: string[]) => setHeroImages(images);
@@ -112,6 +151,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const deleteUserRecord = (userId: string) => {
     setRegisteredUsers(prev => prev.filter(u => u.id !== userId));
   };
+
+  const addReview = (review: Review) => {
+    setReviews(prev => [review, ...prev]);
+  };
   
   const resetToDefaults = () => {
     if(window.confirm("Are you sure? This will wipe all your custom changes.")) {
@@ -119,6 +162,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setHeroImages(INITIAL_HERO_IMAGES);
         setCategories(CATEGORIES);
         setSiteContent(DEFAULT_SITE_CONTENT);
+        setReviews(INITIAL_REVIEWS);
         // We usually don't wipe users on CMS reset, but if requested:
         // setRegisteredUsers([]); 
         localStorage.clear();
@@ -134,6 +178,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       deleteProduct,
       siteContent, updateSiteContent,
       registeredUsers, registerUser, updateUserRecord, deleteUserRecord,
+      reviews, addReview,
       resetToDefaults
     }}>
       {children}

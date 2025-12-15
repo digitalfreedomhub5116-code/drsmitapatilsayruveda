@@ -3,11 +3,12 @@ import { motion as m, AnimatePresence } from 'framer-motion';
 import { 
   X, ShoppingBag, Star, Check, Heart, Zap, ArrowLeft, Search, 
   ShoppingCart, Share2, MapPin, ShieldCheck, RotateCcw, 
-  Tag, Percent
+  Tag, Percent, MessageCircle
 } from 'lucide-react';
-import { Product } from '../types';
+import { Product, User } from '../types';
 import { useData } from '../contexts/DataContext';
 import ImageSkeleton from './ui/ImageSkeleton';
+import ReviewSection from './ReviewSection';
 
 const motion = m as any;
 
@@ -19,6 +20,8 @@ interface QuickViewModalProps {
   onToggleWishlist?: (product: Product) => void;
   onBuyNow?: (product: Product) => void;
   onShare: (product: Product) => void;
+  user?: User | null;
+  onLogin?: () => void;
 }
 
 const QuickViewModal: React.FC<QuickViewModalProps> = ({ 
@@ -28,7 +31,9 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
   wishlist = [], 
   onToggleWishlist, 
   onBuyNow,
-  onShare
+  onShare,
+  user = null,
+  onLogin = () => {}
 }) => {
   const { categories } = useData();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -47,6 +52,12 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
   // Mock images for carousel (using same image for demo if multiple not avail)
   const productImages = [product.image, product.image, product.image, product.image];
+
+  const handleChatWithExpert = () => {
+    const text = `Hi, I have a query regarding ${product.name}.`;
+    const url = `https://wa.me/917470013333?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
 
   return (
     <AnimatePresence>
@@ -98,14 +109,6 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
                       </button>
                   </div>
 
-                  {/* Rating Badge Overlay */}
-                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur border border-sand px-2 py-1 rounded-full shadow-sm flex items-center gap-1 z-20">
-                      <span className="bg-charcoal text-white text-[10px] font-bold px-1.5 py-0.5 rounded flex items-center gap-0.5">
-                          4.3 <Star size={8} fill="currentColor" className="text-gold" />
-                      </span>
-                      <span className="text-xs text-charcoal/70 font-medium">77 ratings</span>
-                  </div>
-
                   {/* Carousel Dots */}
                   <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-20">
                       {productImages.map((_, i) => (
@@ -126,10 +129,19 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     <span className="text-2xl font-serif font-bold text-charcoal">₹{product.price}</span>
                 </div>
 
-                <div className="flex flex-wrap gap-2 text-[10px] font-medium uppercase tracking-wide">
+                <div className="flex flex-wrap gap-2 text-[10px] font-medium uppercase tracking-wide mb-5">
                     <span className="border border-sand rounded px-2 py-1 bg-sand/20 text-charcoal/70">Free Delivery</span>
                     <span className="border border-sand rounded px-2 py-1 bg-sand/20 text-charcoal/70">Assured Quality</span>
                 </div>
+
+                {/* Chat with Expert Button */}
+                <button 
+                  onClick={handleChatWithExpert}
+                  className="w-full bg-[#25D366] text-white font-sans font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-[#128C7E] transition-colors shadow-md active:scale-95"
+                >
+                  <MessageCircle size={20} className="fill-current" />
+                  Chat with Expert
+                </button>
             </div>
 
             {/* 4. Deals & Offers */}
@@ -200,6 +212,13 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     </li>
                 </ul>
             </div>
+            
+            {/* Reviews Section */}
+            <ReviewSection 
+              productId={product.id} 
+              user={user} 
+              onLoginRequest={onLogin} 
+            />
 
              {/* 7. Similar Products */}
              <div className="bg-white mt-2 p-5 pb-8 shadow-sm">

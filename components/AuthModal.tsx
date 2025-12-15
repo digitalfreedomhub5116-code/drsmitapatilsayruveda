@@ -109,7 +109,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess }) => 
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
-            className="fixed top-4 left-0 right-0 mx-auto w-[90%] max-w-sm bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-3 z-[80] border border-gray-100 flex items-start gap-3 cursor-pointer"
+            className="fixed top-4 left-0 right-0 mx-auto w-[90%] max-w-sm bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-3 z-[210] border border-gray-100 flex items-start gap-3 cursor-pointer"
             onClick={() => {
                 // Auto-fill on click for convenience
                 setOtp(generatedOtp);
@@ -132,7 +132,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess }) => 
         )}
       </AnimatePresence>
 
-      <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

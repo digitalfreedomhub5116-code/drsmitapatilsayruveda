@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Home, Search, ShoppingBag, Heart, Star, Zap, Eye, Share2 } from 'lucide-react';
+import { ArrowLeft, ShoppingBag, Heart, Zap, Share2 } from 'lucide-react';
 import { useData } from '../contexts/DataContext';
 import { Category, Product } from '../types';
 import ImageSkeleton from './ui/ImageSkeleton';
@@ -155,11 +155,6 @@ const ShopPage: React.FC<ShopPageProps> = ({
                                   <Share2 size={18} />
                                </button>
                            </div>
-
-                           {/* Rating Pill */}
-                           <div className="absolute bottom-2 left-2 bg-white/95 px-1.5 py-0.5 rounded text-[10px] font-bold flex items-center gap-0.5 shadow-sm z-20">
-                              4.8 <Star size={8} className="fill-gold text-gold" />
-                           </div>
                         </div>
 
                         {/* Details */}
@@ -184,6 +179,16 @@ const ShopPage: React.FC<ShopPageProps> = ({
                         </div>
                       </div>
                    ))}
+                </div>
+
+                {/* Mobile Bottom Back Button */}
+                <div className="mt-8 md:hidden flex justify-center w-full">
+                  <button 
+                    onClick={onNavigateHome}
+                    className="flex items-center gap-2 px-8 py-3 bg-white border border-gray-200 text-charcoal font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-sm active:scale-95 transition-all hover:bg-gray-50"
+                  >
+                    <ArrowLeft size={14} /> Back
+                  </button>
                 </div>
               </motion.div>
             )}

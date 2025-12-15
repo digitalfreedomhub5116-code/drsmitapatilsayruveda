@@ -1,7 +1,7 @@
 import { Product, Ingredient, Category, SiteContent } from './types';
 
-// Using a placeholder that resembles the provided jar image
-export const PRODUCT_IMAGE_URL = "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1887&auto=format&fit=crop"; 
+// Optimized: Reduced width from 1887 to 600, q=75
+export const PRODUCT_IMAGE_URL = "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=75&w=600&auto=format&fit=crop"; 
 
 export const MAIN_PRODUCT: Product = {
   id: 'mm-001',
@@ -39,18 +39,20 @@ export const HERO_PHRASES = [
   "The Secret to Radiant Skin"
 ];
 
+// Optimized: Reduced width to 800 for hero
 export const HERO_IMAGES = [
   PRODUCT_IMAGE_URL,
-  'https://images.unsplash.com/photo-1612817288484-96916a0816a9?q=80&w=1000&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1612817288484-96916a0816a9?q=75&w=800&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=75&w=800&auto=format&fit=crop'
 ];
 
+// Optimized: Reduced category images to w=500
 export const CATEGORIES: Category[] = [
   {
     id: 'cat-hair',
     title: 'Hair Care',
     description: 'Nourish your crown with nature’s finest herbs.',
-    image: 'https://images.unsplash.com/photo-1522337360705-8b13d5204369?q=80&w=1000&auto=format&fit=crop', // Hair/Spa image
+    image: 'https://images.unsplash.com/photo-1522337360705-8b13d5204369?q=75&w=500&auto=format&fit=crop', // Hair/Spa image
     products: [
       {
         id: 'hc-1',
@@ -58,7 +60,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Natural Conditioning',
         price: 299,
         description: ['Promotes growth', 'Natural cooling', 'Rich color'],
-        image: 'https://images.unsplash.com/photo-1590156546946-ce55a12a6a5d?q=80&w=1000&auto=format&fit=crop' // Powder/Bowl
+        image: 'https://images.unsplash.com/photo-1590156546946-ce55a12a6a5d?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'hc-2',
@@ -66,7 +68,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Scalp Therapy',
         price: 499,
         description: ['Eliminates dandruff', 'Soothes itchiness', 'Strengthens roots'],
-        image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=80&w=1000&auto=format&fit=crop' // Oil bottle
+        image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=75&w=500&auto=format&fit=crop'
       }
     ]
   },
@@ -74,7 +76,7 @@ export const CATEGORIES: Category[] = [
     id: 'cat-skin',
     title: 'Skin Care',
     description: 'Radiant, breathing skin with organic purity.',
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1000&auto=format&fit=crop', // Skincare setup
+    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=75&w=500&auto=format&fit=crop',
     products: [
       {
         id: 'sc-1',
@@ -82,7 +84,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Hydrating & Healing',
         price: 349,
         description: ['Soothes inflammation', 'Hydrates deeply', 'Antibacterial'],
-        image: 'https://images.unsplash.com/photo-1615396899839-c99c121888b0?q=80&w=1000&auto=format&fit=crop' // Aloe
+        image: 'https://images.unsplash.com/photo-1615396899839-c99c121888b0?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'sc-2',
@@ -90,7 +92,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Pure Extract',
         price: 199,
         description: ['Versatile mix', 'Rich in vitamins', 'Detoxifying'],
-        image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1000&auto=format&fit=crop' // Green Powder
+        image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'sc-3',
@@ -98,7 +100,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Traditional Exfoliation',
         price: 399,
         description: ['Removes dead skin', 'Brightens complexion', 'Softens texture'],
-        image: 'https://images.unsplash.com/photo-1601055903647-87e16f36d217?q=80&w=1000&auto=format&fit=crop' // Ubtan
+        image: 'https://images.unsplash.com/photo-1601055903647-87e16f36d217?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'sc-4',
@@ -114,7 +116,7 @@ export const CATEGORIES: Category[] = [
     id: 'cat-veg',
     title: 'Veggies Powder',
     description: 'Concentrated nutrition for health and beauty.',
-    image: 'https://images.unsplash.com/photo-1615485925763-86786278078a?q=80&w=1000&auto=format&fit=crop', // Spices/Powders
+    image: 'https://images.unsplash.com/photo-1615485925763-86786278078a?q=75&w=500&auto=format&fit=crop',
     products: [
       {
         id: 'vp-1',
@@ -122,7 +124,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Natural Blush',
         price: 249,
         description: ['Rich in iron', 'Natural coloring', 'Antioxidant boost'],
-        image: 'https://images.unsplash.com/photo-1601386629988-6644d6db5288?q=80&w=1000&auto=format&fit=crop' // Red powder
+        image: 'https://images.unsplash.com/photo-1601386629988-6644d6db5288?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'vp-2',
@@ -130,7 +132,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Hair Regrowth',
         price: 249,
         description: ['Sulfur rich', 'Boosts collagen', 'Prevents breakage'],
-        image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=80&w=1000&auto=format&fit=crop' // Onion
+        image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'vp-3',
@@ -138,7 +140,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Vitamin A Boost',
         price: 249,
         description: ['Sun protection', 'Anti-aging', 'Skin repair'],
-        image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1000&auto=format&fit=crop' // Carrot
+        image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'vp-4',
@@ -146,7 +148,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Tan Removal',
         price: 249,
         description: ['Brightening', 'Pore tightening', 'Oil balance'],
-        image: 'https://images.unsplash.com/photo-1606923829571-0f26364996e3?q=80&w=1000&auto=format&fit=crop' // Tomato
+        image: 'https://images.unsplash.com/photo-1606923829571-0f26364996e3?q=75&w=500&auto=format&fit=crop'
       }
     ]
   },
@@ -154,7 +156,7 @@ export const CATEGORIES: Category[] = [
     id: 'cat-gen',
     title: 'General Care',
     description: 'Holistic wellness for daily vitality.',
-    image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1000&auto=format&fit=crop', // Medicine/Herbs
+    image: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=75&w=500&auto=format&fit=crop',
     products: [
       {
         id: 'gc-1',
@@ -162,7 +164,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Digestive Health',
         price: 199,
         description: ['Detoxification', 'Relieves constipation', 'Improves digestion'],
-        image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=1000&auto=format&fit=crop' // Pills
+        image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=75&w=500&auto=format&fit=crop'
       },
       {
         id: 'gc-2',
@@ -170,7 +172,7 @@ export const CATEGORIES: Category[] = [
         subtitle: 'Blood Sugar Support',
         price: 599,
         description: ['Regulates sugar', 'Boosts immunity', 'Natural ingredients'],
-        image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=1000&auto=format&fit=crop' // Bottle
+        image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=75&w=500&auto=format&fit=crop'
       }
     ]
   }
@@ -179,7 +181,8 @@ export const CATEGORIES: Category[] = [
 export const DEFAULT_SITE_CONTENT: SiteContent = {
   brandLogos: ["Vogue", "Elle", "Harper's Bazaar", "Femina", "Ayurveda Today", "Organic Life"],
   about: {
-    image: "https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=2070&auto=format&fit=crop",
+    // Optimized: w=800
+    image: "https://images.unsplash.com/photo-1544367563-12123d8965cd?q=75&w=800&auto=format&fit=crop",
     badgeVal: "15+",
     badgeLabel: "Years of Healing",
     tag: "The Vision",
@@ -216,7 +219,8 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     { q: "What is the shelf life?", a: "Since we use no artificial preservatives, the shelf life is 12 months from the date of manufacturing when kept in a cool, dry place." },
   ],
   cta: {
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop",
+    // Optimized: w=800
+    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=75&w=800&auto=format&fit=crop",
     title: "Ready to Glow?",
     highlight: "Glow?",
     text: "Join thousands who have rediscovered their natural radiance. First order? Get 10% OFF with code WELCOME10."

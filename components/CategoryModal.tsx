@@ -53,6 +53,24 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           className="bg-porcelain w-full h-full md:h-[90vh] md:w-[90vw] md:max-w-6xl md:rounded-3xl shadow-2xl relative z-10 overflow-hidden flex flex-col"
         >
+          {/* --- MOBILE: Top Left Back Button --- */}
+          <button 
+            onClick={onClose}
+            className="absolute top-4 left-4 z-[90] p-2.5 bg-white text-charcoal rounded-full shadow-xl md:hidden flex items-center justify-center border border-gray-100 active:scale-95 transition-transform"
+            aria-label="Back"
+          >
+            <ArrowLeft size={20} />
+          </button>
+
+          {/* --- DESKTOP: Top Right Close Button --- */}
+          <button 
+            onClick={onClose}
+            className="absolute top-6 right-6 z-[90] p-2.5 bg-white text-charcoal rounded-full shadow-xl hidden md:flex items-center justify-center border border-gray-100 hover:bg-gold hover:text-white transition-all transform hover:scale-110"
+            aria-label="Close"
+          >
+            <X size={24} />
+          </button>
+
           {/* Header Image Area */}
           <div className="relative h-48 md:h-64 shrink-0 overflow-hidden bg-charcoal">
             <ImageSkeleton 
@@ -62,7 +80,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent flex flex-col justify-end p-6 text-white z-10">
               
-              {/* Breadcrumbs (Desktop) */}
+              {/* Breadcrumbs (Desktop Only) */}
               <div className="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80 mb-4 absolute top-6 left-6">
                 <button 
                   onClick={onNavigateHome} 
@@ -79,20 +97,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
               <h2 className="font-display text-3xl md:text-5xl mb-2">{category.title}</h2>
               <p className="font-sans text-sm md:text-lg text-white/90 max-w-2xl line-clamp-2 md:line-clamp-none leading-relaxed">{category.description}</p>
             </div>
-
-            {/* Mobile Header Actions Overlay */}
-            <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start md:hidden z-20">
-               <button 
-                 onClick={onClose}
-                 className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30"
-               >
-                 <ArrowLeft size={20} />
-               </button>
-            </div>
           </div>
 
           {/* Product Grid */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-10 bg-white">
+          <div className="flex-1 overflow-y-auto px-4 pt-4 pb-24 md:p-10 bg-white">
              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
                {category.products.map((product, idx) => (
                  <motion.div
@@ -164,17 +172,17 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                  </motion.div>
                ))}
              </div>
+
+             {/* Mobile Bottom Back Button */}
+             <div className="mt-8 md:hidden flex justify-center w-full">
+               <button 
+                 onClick={onClose}
+                 className="flex items-center gap-2 px-8 py-3 bg-white border border-gray-200 text-charcoal font-sans font-bold text-xs uppercase tracking-widest rounded-full shadow-sm active:scale-95 transition-all hover:bg-gray-50"
+               >
+                 <ArrowLeft size={14} /> Back
+               </button>
+             </div>
           </div>
-
-          {/* Floating Close Button (Desktop & Mobile safe fallback) */}
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 z-[80] p-2.5 bg-white text-charcoal rounded-full shadow-xl hover:bg-gold hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-gray-100"
-            aria-label="Close"
-          >
-            <X size={24} />
-          </button>
-
         </motion.div>
       </div>
     </AnimatePresence>

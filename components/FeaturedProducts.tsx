@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion as m } from 'framer-motion';
-import { ShoppingBag, Star, Eye, Heart, Zap, Share2 } from 'lucide-react';
+import { ShoppingBag, Heart, Zap, Share2 } from 'lucide-react';
 import { useData } from '../contexts/DataContext';
 import { Product } from '../types';
 import ImageSkeleton from './ui/ImageSkeleton';
@@ -98,11 +98,6 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
                    >
                      <Share2 size={14} className="md:w-4 md:h-4" />
                  </button>
-                 
-                 {/* Rating Badge */}
-                 <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white/95 backdrop-blur-0 md:backdrop-blur px-2 py-1 md:px-3 rounded-full flex items-center gap-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-charcoal shadow-sm z-20">
-                    <Star size={10} className="md:w-3 md:h-3 text-gold fill-gold" /> 4.9
-                 </div>
               </div>
               
               <div className="flex-1 flex flex-col px-1 md:px-2">

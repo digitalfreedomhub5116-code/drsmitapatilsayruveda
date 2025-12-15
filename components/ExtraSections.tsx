@@ -41,7 +41,9 @@ export const ProcessSection = () => {
     target: ref,
     offset: ["start end", "end start"]
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  
+  // Reduced parallax distance for better performance
+  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
   
   // Hardcoded icons map for steps 1-4
   const icons = [
@@ -60,7 +62,7 @@ export const ProcessSection = () => {
         className="absolute inset-0 z-0 h-[120%] -top-[10%]"
       >
          <img
-            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=75&w=800&auto=format&fit=crop"
             alt="Ritual Background"
             className="w-full h-full object-cover opacity-50"
          />
@@ -175,9 +177,9 @@ export const TestimonialsSection = () => {
 
   return (
     <section className="py-32 bg-porcelain relative overflow-hidden">
-      {/* Background Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sand/40 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-rosegold/10 rounded-full blur-[100px]" />
+      {/* Background Blobs - Reduced blur for performance */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sand/40 rounded-full blur-2xl opacity-50" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-rosegold/10 rounded-full blur-2xl opacity-50" />
 
       <div className="max-w-7xl mx-auto px-6 text-center mb-20 relative z-10">
         <motion.div
@@ -297,7 +299,8 @@ export const CtaSection = () => {
     offset: ["start end", "end start"]
   });
   
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  // Reduced parallax distance
+  const y = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
   const titleParts = cta.title.split(cta.highlight);
 

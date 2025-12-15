@@ -8,9 +8,10 @@ interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
   amount: number;
+  onPaymentSuccess: () => void;
 }
 
-const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, amount }) => {
+const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, amount, onPaymentSuccess }) => {
   const [method, setMethod] = useState<'upi' | 'card' | 'cod'>('upi');
   const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success'>('idle');
 
@@ -18,7 +19,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, amount }) 
     setPaymentStatus('processing');
     setTimeout(() => {
       setPaymentStatus('success');
+      onPaymentSuccess();
     }, 2000);
+  };
+
+  const handleClose = () => {
+    // Reset state when closing
+    if (paymentStatus === 'success') {
+       setTimeout(() => setPaymentStatus('idle'), 300);
+    }
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -30,7 +40,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, amount }) 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <motion.div
@@ -50,13 +60,13 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, amount }) 
             </motion.div>
             <h3 className="font-serif text-3xl text-charcoal mb-2">Order Confirmed!</h3>
             <p className="text-gray-500 font-sans">Thank you for choosing Dr. Smita Patil's Ayurveda.</p>
-            <button onClick={onClose} className="mt-8 text-rosegold font-bold hover:underline">Close</button>
+            <button onClick={handleClose} className="mt-8 text-rosegold font-bold hover:underline">Close</button>
           </div>
         ) : (
           <>
             <div className="bg-sand/30 p-6 flex justify-between items-center border-b border-gray-100">
               <h3 className="font-serif text-xl text-charcoal">Secure Payment</h3>
-              <button onClick={onClose}><X size={20} className="text-gray-500" /></button>
+              <button onClick={handleClose}><X size={20} className="text-gray-500" /></button>
             </div>
 
             <div className="p-6">

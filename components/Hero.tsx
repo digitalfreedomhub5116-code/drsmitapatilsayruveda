@@ -33,8 +33,6 @@ const Hero: React.FC<HeroProps> = ({ onAddToCart }) => {
     return () => clearInterval(interval);
   }, [heroImages]);
 
-  const marqueeText = "Experience the purifying power of nature with Dr. Smita Patil's authentic Ayurvedic blend.";
-
   return (
     <section className="relative min-h-[90vh] md:min-h-screen flex flex-col md:flex-row items-center overflow-hidden pt-28 pb-10">
       
@@ -43,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ onAddToCart }) => {
 
       {/* Left Content */}
       <div className="w-full md:w-1/2 px-6 md:px-16 lg:px-24 z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left h-full mt-4 md:mt-0">
-        <div className="h-24 md:h-40 flex items-center justify-center md:justify-start w-full">
+        <div className="h-24 md:h-40 flex items-center justify-center md:justify-start w-full mb-8">
           <AnimatePresence mode="wait">
             <motion.h1
               key={activePhraseIndex}
@@ -58,28 +56,8 @@ const Hero: React.FC<HeroProps> = ({ onAddToCart }) => {
           </AnimatePresence>
         </div>
         
-        {/* Animated Marquee Strip */}
-        <div className="w-full max-w-md overflow-hidden relative mt-4 md:mt-6 mb-8 mask-gradient-x">
-            <motion.div 
-                className="flex gap-8 whitespace-nowrap"
-                animate={{ x: "-50%" }}
-                transition={{ 
-                    repeat: Infinity, 
-                    duration: 15, 
-                    ease: "linear" 
-                }}
-            >
-                {[...Array(4)].map((_, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                        <span className="font-sans text-sm md:text-lg text-gray-600">{marqueeText}</span>
-                        <Sparkles size={12} className="text-gold fill-gold/50" />
-                    </div>
-                ))}
-            </motion.div>
-        </div>
-
         <motion.div 
-          className="mt-2"
+          className="mt-4"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
@@ -91,10 +69,10 @@ const Hero: React.FC<HeroProps> = ({ onAddToCart }) => {
       </div>
 
       {/* Right Content - Product Image Carousel */}
-      <div className="w-full md:w-1/2 flex items-center justify-center relative z-10 mt-8 md:mt-0">
+      <div className="w-full md:w-1/2 flex items-center justify-center relative z-10 mt-12 md:mt-0">
         
-        {/* Static Glow Aura */}
-        <div className="absolute w-64 h-64 md:w-80 md:h-80 bg-gold/10 rounded-full blur-3xl" />
+        {/* Static Glow Aura - Reduced blur for performance */}
+        <div className="absolute w-64 h-64 md:w-80 md:h-80 bg-gold/10 rounded-full blur-xl md:blur-2xl" />
 
         <div className="relative group">
           {/* Main Image Carousel Container */}

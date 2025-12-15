@@ -26,6 +26,7 @@ export interface User {
   address?: string;
   profilePic?: string;
   joinedAt?: string;
+  purchasedProductIds?: string[];
 }
 
 export interface Category {
@@ -34,6 +35,18 @@ export interface Category {
   description: string;
   image: string;
   products: Product[];
+}
+
+export interface Review {
+  id: string;
+  productId: string;
+  userId: string;
+  userName: string;
+  userProfilePic?: string;
+  rating: number;
+  comment: string;
+  media: { type: 'image' | 'video', url: string }[];
+  date: string;
 }
 
 // New Interface for managing all static site content

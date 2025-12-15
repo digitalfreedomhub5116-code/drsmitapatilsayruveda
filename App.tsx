@@ -19,12 +19,12 @@ import ProfileModal from './components/ProfileModal';
 import AdminPanel from './components/AdminPanel';
 import QuickViewModal from './components/QuickViewModal';
 import ShareModal from './components/ShareModal';
+import MarqueeSection from './components/MarqueeSection'; // New Import
 import { DataProvider, useData } from './contexts/DataContext';
 import { 
   ProcessSection, 
   TestimonialsSection, 
-  FaqSection, 
-  CtaSection 
+  FaqSection
 } from './components/ExtraSections';
 import { MAIN_PRODUCT } from './constants';
 import { CartItem, User, Category, Product } from './types';
@@ -162,6 +162,28 @@ const MainApp = () => {
     setIsProfileOpen(false);
   };
 
+  // Called when payment succeeds in PaymentModal
+  const handlePaymentSuccess = () => {
+    if (user) {
+       // Extract all product IDs from the current cart
+       const newPurchasedIds = cart.map(item => item.id);
+       
+       // Update user history (merge with existing)
+       const updatedUser: User = {
+          ...user,
+          purchasedProductIds: [
+            ...(user.purchasedProductIds || []),
+            ...newPurchasedIds
+          ]
+          // Filter duplicates could be done, but simple array spread is fine for demo logic
+       };
+       
+       setUser(updatedUser);
+       updateUserRecord(updatedUser);
+    }
+    setCart([]);
+  };
+
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   if (view === 'admin') {
@@ -196,8 +218,10 @@ const MainApp = () => {
                   <div className="relative">
                     <Hero onAddToCart={() => addToCart(MAIN_PRODUCT)} />
                   </div>
-                  {/* BrandLogos section removed */}
-                  {/* AboutSection removed from Home */}
+                  
+                  {/* New Marquee Section */}
+                  <MarqueeSection />
+
                   <CategoriesSection onCategoryClick={setSelectedCategory} />
                   
                   <FeaturedProducts 
@@ -212,7 +236,6 @@ const MainApp = () => {
                   <ProcessSection />
                   <TestimonialsSection />
                   <FaqSection />
-                  <CtaSection />
                 </>
               )}
 
@@ -313,6 +336,8 @@ const MainApp = () => {
               onToggleWishlist={toggleWishlist}
               onBuyNow={handleBuyNow}
               onShare={handleShare}
+              user={user}
+              onLogin={() => setIsAuthOpen(true)}
             />
 
             <AuthModal 
@@ -337,6 +362,7 @@ const MainApp = () => {
               isOpen={isPaymentOpen}
               onClose={() => setIsPaymentOpen(false)}
               amount={cartTotal}
+              onPaymentSuccess={handlePaymentSuccess}
             />
 
             <ShareModal 

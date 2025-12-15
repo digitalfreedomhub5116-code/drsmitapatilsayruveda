@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
-import { X, ShoppingBag, Eye, ChevronRight, Home, Heart, Zap, Share2 } from 'lucide-react';
+import { X, ShoppingBag, Eye, ChevronRight, Home, Heart, Zap, Share2, ArrowLeft } from 'lucide-react';
 import { Category, Product } from '../types';
 import ImageSkeleton from './ui/ImageSkeleton';
 
@@ -53,26 +53,17 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           className="bg-porcelain w-full h-full md:h-[90vh] md:w-[90vw] md:max-w-6xl md:rounded-3xl shadow-2xl relative z-10 overflow-hidden flex flex-col"
         >
-          {/* Close Button - High Z-Index & Contrast */}
-          <button 
-            onClick={onClose}
-            className="absolute top-4 right-4 md:top-6 md:right-6 bg-white text-charcoal p-2.5 rounded-full shadow-xl z-[60] hover:bg-gold hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-gray-100"
-            aria-label="Close Modal"
-          >
-            <X size={24} className="md:w-6 md:h-6" />
-          </button>
-
-          {/* Header Image */}
-          <div className="relative h-40 md:h-64 shrink-0 overflow-hidden bg-charcoal">
+          {/* Header Image Area */}
+          <div className="relative h-48 md:h-64 shrink-0 overflow-hidden bg-charcoal">
             <ImageSkeleton 
               src={category.image} 
               alt={category.title} 
               className="w-full h-full object-cover opacity-80"
             />
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center flex-col text-white p-6 text-center z-10">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent flex flex-col justify-end p-6 text-white z-10">
               
-              {/* Breadcrumbs */}
-              <div className="absolute top-6 left-6 flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest text-white/80 z-20 hidden md:flex">
+              {/* Breadcrumbs (Desktop) */}
+              <div className="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80 mb-4 absolute top-6 left-6">
                 <button 
                   onClick={onNavigateHome} 
                   className="hover:text-white transition-colors flex items-center gap-1"
@@ -80,18 +71,23 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                   <Home size={12} className="mb-0.5" /> Home
                 </button>
                 <ChevronRight size={12} className="text-white/50" />
-                <button 
-                  onClick={onClose} 
-                  className="hover:text-white transition-colors"
-                >
-                  Shop
-                </button>
+                <span>Shop</span>
                 <ChevronRight size={12} className="text-white/50" />
                 <span className="text-white">{category.title}</span>
               </div>
 
-              <h2 className="font-display text-3xl md:text-6xl mb-2">{category.title}</h2>
-              <p className="font-sans text-sm md:text-lg text-white/80 max-w-2xl line-clamp-2 md:line-clamp-none">{category.description}</p>
+              <h2 className="font-display text-3xl md:text-5xl mb-2">{category.title}</h2>
+              <p className="font-sans text-sm md:text-lg text-white/90 max-w-2xl line-clamp-2 md:line-clamp-none leading-relaxed">{category.description}</p>
+            </div>
+
+            {/* Mobile Header Actions Overlay */}
+            <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start md:hidden z-20">
+               <button 
+                 onClick={onClose}
+                 className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30"
+               >
+                 <ArrowLeft size={20} />
+               </button>
             </div>
           </div>
 
@@ -169,6 +165,16 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
                ))}
              </div>
           </div>
+
+          {/* Floating Close Button (Desktop & Mobile safe fallback) */}
+          <button 
+            onClick={onClose}
+            className="absolute top-4 right-4 z-[80] p-2.5 bg-white text-charcoal rounded-full shadow-xl hover:bg-gold hover:text-white transition-all transform hover:scale-110 flex items-center justify-center border border-gray-100"
+            aria-label="Close"
+          >
+            <X size={24} />
+          </button>
+
         </motion.div>
       </div>
     </AnimatePresence>
